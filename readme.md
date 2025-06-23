@@ -1,0 +1,1 @@
+notification when pull request to slack and mail -> send mail -> use 3rd smtp service (support html and plaintext type) -> gmail block -> 2-step-verification -> app password -> github secret
