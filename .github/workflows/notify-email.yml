@@ -1,4 +1,4 @@
-name: Notify PR via Email
+name: Notify PR via Gmail with Link
 
 on:
   pull_request:
@@ -9,19 +9,18 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Send Email
+      - name: Send HTML email
         uses: dawidd6/action-send-mail@v3
         with:
           server_address: smtp.gmail.com
           server_port: 465
           username: ${{ secrets.EMAIL_USERNAME }}
           password: ${{ secrets.EMAIL_PASSWORD }}
-          subject: "🛎 New Pull Request by ${{ github.actor }}"
+          subject: "📬 New Pull Request: ${{ github.event.pull_request.title }} by ${{ github.actor}}"
           to: ${{ secrets.EMAIL_RECIPIENTS }}
-          from: GitHub Bot <${{ secrets.EMAIL_USERNAME }} dev1>
-          body: |
-            📢 New Pull Request Created!
-
-            📌 Title: ${{ github.event.pull_request.title }}
-            ✍️ Author: ${{ github.event.pull_request.user.login }}
-            🔗 URL: ${{ github.event.pull_request.html_url }}
+          from: GitHub Bot >
+          html_body: |
+            <h2>📢 Pull Request Alert</h2>
+            <p><strong>Title:</strong> ${{ github.event.pull_request.title }}</p>
+            <p><strong>Author:</strong> ${{ github.event.pull_request.user.login }}</p>
+            <p><a href="${{ github.event.pull_request.html_url }}">👉 View Pull Request</a></p>
