@@ -1,1 +1,1 @@
-1. notification when pull request to slack and mail -> send mail -> use 3rd smtp service (support html and plaintext type) -> choose html support (slack mobile doesn't display clickable link)-> 2-step-verification -> app password -> github secret
+1. notification when pull request to slack and mail -> send mail -> use 3rd smtp service (support html and plaintext type) -> choose html support (slack mobile doesn't display clickable link)-> 2-step-verification (gmail block nomal passsword) -> app password -> github secret (security)
