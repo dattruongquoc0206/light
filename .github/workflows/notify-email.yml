@@ -18,7 +18,7 @@ jobs:
           password: ${{ secrets.EMAIL_PASSWORD }}
           subject: "🛎 New Pull Request by ${{ github.actor }}"
           to: ${{ secrets.EMAIL_RECIPIENTS }}
-          from: GitHub Bot <${{ secrets.EMAIL_USERNAME }}>
+          from: GitHub Bot <${{ secrets.EMAIL_USERNAME }} dev>
           body: |
             📢 New Pull Request Created!
 
