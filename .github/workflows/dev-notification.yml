@@ -6,7 +6,7 @@ on:
       - dev
   pull_request:
     branches:
-      - dev
+      - [main, dev]
     types: [opened, synchronize, reopened, closed]
   workflow_dispatch:
 
@@ -25,7 +25,7 @@ jobs:
           subject: |
             📬 GitHub Event: ${{ github.event_name == 'pull_request' && format('PR - {0}', github.event.pull_request.title) || format('Push by {0}', github.actor) }}
           to: ${{ secrets.EMAIL_RECIPIENTS }}
-          from: GitHub Bot <bot@example.com>
+          from: GitHub Bot 
           html_body: |
             <h2>📢 GitHub Event Notification</h2>
             <p><strong>Event:</strong> ${{ github.event_name }}</p>
