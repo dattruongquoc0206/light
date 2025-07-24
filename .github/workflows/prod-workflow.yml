@@ -2,8 +2,9 @@ name: Notify PR via Gmail with Link
 
 on:
   pull_request:
-    types: [opened]
-
+    branch: main
+    type
+  
 jobs:
   send_email:
     runs-on: ubuntu-latest

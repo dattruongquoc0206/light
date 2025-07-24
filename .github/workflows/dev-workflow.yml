@@ -1,0 +1,43 @@
+name: Notify via Gmail for Git Events
+
+on:
+  push:
+    branches:
+      - dev
+  pull_request:
+    branches:
+      - dev
+    types: [opened, synchronize, reopened, closed]
+  workflow_dispatch:
+
+jobs:
+  send_email:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Send HTML email
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          username: ${{ secrets.EMAIL_USERNAME }}
+          password: ${{ secrets.EMAIL_PASSWORD }}
+          subject: |
+            📬 GitHub Event: ${{ github.event_name == 'pull_request' && format('PR - {0}', github.event.pull_request.title) || format('Push by {0}', github.actor) }}
+          to: ${{ secrets.EMAIL_RECIPIENTS }}
+          from: GitHub Bot <bot@example.com>
+          html_body: |
+            <h2>📢 GitHub Event Notification</h2>
+            <p><strong>Event:</strong> ${{ github.event_name }}</p>
+            <p><strong>Repository:</strong> ${{ github.repository }}</p>
+            <p><strong>Actor:</strong> ${{ github.actor }}</p>
+
+            ${{ github.event_name == 'pull_request' && format('<p><strong>PR Title:</strong> {0}</p><p><a href="{1}">👉 View PR</a></p>', github.event.pull_request.title, github.event.pull_request.html_url) || '' }}
+
+            ${{ github.event_name == 'push' && format('<p><strong>Branch:</strong> {0}</p><p><a href="https://github.com/{1}/commits/{0}">👉 View Commits</a></p>', github.ref_name, github.repository) || '' }}
+            <p><strong>Timestamp:</strong> ${{ github.event.head_commit.timestamp }}</p>
+            <p><strong>Commit Message:</strong> ${{ github.event.head_commit.message }}</p>
+            <p><strong>Commit URL:</strong> <a href="${{ github.event.head_commit.url }}">View Commit</a></p>
+            <p><strong>Committer:</strong> ${{ github.event.head_commit.author.name }}</p>
+            <p><strong>Committer Email:</strong> ${{ github.event.head_commit.author.email }}</p>
+            <p><strong>Commit SHA:</strong> <code>${{ github.event.head_commit.id }}</code></p>
