@@ -1,27 +1,23 @@
-name: Notify PR via Gmail with Link
+name: CD 
 
 on:
-  pull_request:
-    branch: main
-    type
-  
+  workflow_run:
+    workflows: ["CI"]
+    types:
+      - success
+  workflow_dispatch:
+
 jobs:
-  send_email:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Send HTML email
-        uses: dawidd6/action-send-mail@v3
-        with:
-          server_address: smtp.gmail.com
-          server_port: 465
-          username: ${{ secrets.EMAIL_USERNAME }}
-          password: ${{ secrets.EMAIL_PASSWORD }}
-          subject: "📬 New Pull Request: ${{ github.event.pull_request.title }} by ${{ github.actor}}"
-          to: ${{ secrets.EMAIL_RECIPIENTS }}
-          from: GitHub Bot >
-          html_body: |
-            <h2>📢 Pull Request Alert</h2>
-            <p><strong>Title:</strong> ${{ github.event.pull_request.title }}</p>
-            <p><strong>Author:</strong> ${{ github.event.pull_request.user.login }}</p>
-            <p><a href="${{ github.event.pull_request.html_url }}">👉 View Pull Request</a></p>
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Deploy to Production
+        run: |
+          echo "Deploying to production..."
+          # Add your deployment commands here, e.g., SSH into server, run deployment scripts, etc.
+          # Example:
+          # ssh

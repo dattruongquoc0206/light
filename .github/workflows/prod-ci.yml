@@ -1,0 +1,41 @@
+name: CI
+
+on:
+  pull_request:
+    branches: main
+    types: [opened, synchronize, reopened]
+  workflow_dispatch:
+  
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actrions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r app/requirements.txt
+      - name: Run tests
+        run: |
+          pip install pytest pytest-cov flake8
+          # Run tests with coverage
+          python -m pytest app/tests --cov=app --cov-report=xml --cov-report=html
+          flask8 app/
+      - name: Upload coverage report
+        uses: actions/upload-artifact@v3
+        with:
+          name: coverage-report
+      - name: Upload test results
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-results
+      # - name: build Docker image
+      #   run: |
+      #     docker build -t myapp:latest .
