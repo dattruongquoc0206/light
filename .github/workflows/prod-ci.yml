@@ -50,7 +50,5 @@ jobs:
           context: ./app
           file: Dockerfile
           push: true
-          tags: 
-          - ${{ secrets.DOCKER_USERNAME }}/app:{{ github.sha }}
-          - ${{ secrets.DOCKER_USERNAME }}/app:latest
+          tags: ${{ secrets.DOCKER_USERNAME }}/app:{{ github.sha }}, ${{ secrets.DOCKER_USERNAME }}/app:latest
   
