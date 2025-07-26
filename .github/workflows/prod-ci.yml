@@ -48,7 +48,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: ./app
-          file: Dockerfile
+          file: ./app/Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/app:${{ github.sha }}, ${{ secrets.DOCKER_USERNAME }}/app:latest
   
