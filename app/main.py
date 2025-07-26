@@ -12,4 +12,4 @@ def say_hello(name: str):
 
 @app.post("/hello")
 def say_hello_post(request: NameRequest):
-    return {"message": f"Xin chào {request.name}"}
+    return {"message": f"Xin chào {request.name} test1"}
