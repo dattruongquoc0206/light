@@ -1,12 +1,10 @@
-name: Notify via Gmail for Git Events
+name: Notify
 
 on:
   push:
-    branches:
-      - dev
+    branches: [main, dev]
   pull_request:
-    branches:
-      - [main, dev]
+    branches: [main, dev]
     types: [opened, synchronize, reopened, closed]
   workflow_dispatch:
 
@@ -37,7 +35,6 @@ jobs:
             ${{ github.event_name == 'push' && format('<p><strong>Branch:</strong> {0}</p><p><a href="https://github.com/{1}/commits/{0}">👉 View Commits</a></p>', github.ref_name, github.repository) || '' }}
             <p><strong>Timestamp:</strong> ${{ github.event.head_commit.timestamp }}</p>
             <p><strong>Commit Message:</strong> ${{ github.event.head_commit.message }}</p>
-            <p><strong>Commit URL:</strong> <a href="${{ github.event.head_commit.url }}">View Commit</a></p>
             <p><strong>Committer:</strong> ${{ github.event.head_commit.author.name }}</p>
             <p><strong>Committer Email:</strong> ${{ github.event.head_commit.author.email }}</p>
             <p><strong>Commit SHA:</strong> <code>${{ github.event.head_commit.id }}</code></p>
