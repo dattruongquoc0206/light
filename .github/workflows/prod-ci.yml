@@ -65,6 +65,6 @@ jobs:
           cd light-helm
           git config --global user.name "github-actions"
           git config --global user.email "action@github.com"
-          git add /charts/model-serving/values.yaml
+          git add ./charts/model-serving/values.yaml
           git commit -m "Update image tag to ${{ github.sha }}"
           git push origin main
