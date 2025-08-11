@@ -21,7 +21,6 @@ jobs:
         run: |
           infisical run --env=prod -- \
             bash -c '
-              printenv | grep -E '^(app_light_helm_repo_token|INFISICAL_TOKEN)='
               echo "Exporting environment variables from Infisical..."
               echo app_light_helm_repo_token=$app_light_helm_repo_token >> $GITHUB_ENV
             '
