@@ -75,7 +75,7 @@ jobs:
           path: light-helm
           token: ${{ secrets.GITHUB_TOKEN }}
         env:
-          GITHUB_TOKEN: ${{ secrets.app-light-helm-repo-token }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: update helm chart image tag values
         run: |
