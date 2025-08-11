@@ -51,4 +51,19 @@ jobs:
           file: ./app/Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/app:${{ github.sha }}, ${{ secrets.DOCKER_USERNAME }}/app:latest
-  
+      - name: checkout helm chart
+        uses: actions/checkout@v3
+        with: 
+          repository: light-helm  
+          path: light-helm
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: update helm chart image tag values
+        run: |
+          sed -i 's|tag: .*|tag: ${{ github.sha }}|' light-helm/charts/model-serving/values.yaml  
+      - name: commit and push changes
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "action@github.com"
+          git add light-helm/charts/model-serving/values.yaml
+          git commit -m "Update image tag to ${{ github.sha }}"
+          git push origin main
