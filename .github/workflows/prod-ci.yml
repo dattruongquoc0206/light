@@ -62,6 +62,7 @@ jobs:
           sed -i 's|tag: .*|tag: ${{ github.sha }}|' light-helm/charts/model-serving/values.yaml  
       - name: commit and push changes
         run: |
+          cd light-helm
           git config --global user.name "github-actions"
           git config --global user.email "action@github.com"
           git add light-helm/charts/model-serving/values.yaml
