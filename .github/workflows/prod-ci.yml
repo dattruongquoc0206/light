@@ -54,7 +54,7 @@ jobs:
       - name: checkout helm chart
         uses: actions/checkout@v3
         with: 
-          repository: light-helm  
+          repository: dattruongquoc0206/light-helm  
           path: light-helm
           token: ${{ secrets.GITHUB_TOKEN }}
       - name: update helm chart image tag values
