@@ -84,8 +84,8 @@ jobs:
       - name: commit and push changes
         run: |
           cd light-helm
-          git config --global user.name "github-actions"
-          git config --global user.email "action@github.com"
+          git config --global user.name "dattruongquoc0206"
+          git config --global user.email "dattruongquoc0206@gmail.com"
           git add ./charts/model-serving/values.yaml
           git commit -m "Update image tag to ${{ github.sha }}"
           git push origin main
