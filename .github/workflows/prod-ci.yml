@@ -22,10 +22,11 @@ jobs:
           infisical run --env=prod -- \
             bash -c '
               echo "Exporting environment variables from Infisical..."
-              echo "$app-light-helm-repo-token" > $GITHUB_ENV
+              echo "$app_light_helm_repo_token" > $GITHUB_ENV
             '
         env:
           INFISICAL_TOKEN: ${{ secrets.INFISICAL_TOKEN }}
+
       - name: Checkout code
         uses: actions/checkout@v3
       - name: Set up Python
