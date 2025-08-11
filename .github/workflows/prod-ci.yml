@@ -22,7 +22,7 @@ jobs:
           infisical run --env=prod -- \
             bash -c '
               echo "Exporting environment variables from Infisical..."
-              echo "GITHUB_TOKEN=$app_light_helm_repo_token" >> $GITHUB_ENV
+              echo "app_light_helm_repo_token=$app_light_helm_repo_token" >> $GITHUB_ENV
             '
         env:
           INFISICAL_TOKEN: ${{ secrets.INFISICAL_TOKEN }}
@@ -73,9 +73,7 @@ jobs:
         with: 
           repository: dattruongquoc0206/light-helm  
           path: light-helm
-          token: ${{ secrets.GITHUB_TOKEN }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.app_light_helm_repo_token }}
 
       - name: update helm chart image tag values
         run: |
