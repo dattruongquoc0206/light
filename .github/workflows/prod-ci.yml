@@ -20,10 +20,10 @@ jobs:
       - name: export env varriables from infisical
         run: |
           infisical run --env=prod -- \
-            bash -c "
+            bash -c '
               echo "Exporting environment variables from Infisical..."
-              echo "app_light_helm_repo_token=$app_light_helm_repo_token" >> $GITHUB_ENV
-            "
+              echo app_light_helm_repo_token=$app_light_helm_repo_token >> $GITHUB_ENV
+            '
         env:
           INFISICAL_TOKEN: ${{ secrets.INFISICAL_TOKEN }}
 
