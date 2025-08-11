@@ -1,0 +1,23 @@
+name: CD 
+
+on:
+  workflow_run:
+    workflows: ["CI"]
+    types:
+      - success
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Deploy to Production
+        run: |
+          echo "Deploying to production..."
+          # Add your deployment commands here, e.g., SSH into server, run deployment scripts, etc.
+          # Example:
+          # ssh
