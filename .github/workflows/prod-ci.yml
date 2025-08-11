@@ -11,6 +11,20 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: install infisical CLI
+        run: |
+          curl -1sLf \
+          'https://artifacts-cli.infisical.com/setup.deb.sh' \
+          | sudo -E bash
+          sudo apt-get update && sudo apt-get install -y infisical
+      - name: export env varriables from infisical
+        run: |
+          infisical run --env=prod -- \
+            bash -c '
+              echo "Exporting environment variables from Infisical..."
+              echo "$app-light-helm-repo-token" > $GITHUB_ENV
+
+            '
       - name: Checkout code
         uses: actions/checkout@v3
       - name: Set up Python
@@ -51,15 +65,20 @@ jobs:
           file: ./app/Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/app:${{ github.sha }}, ${{ secrets.DOCKER_USERNAME }}/app:latest
+      
       - name: checkout helm chart
         uses: actions/checkout@v3
         with: 
           repository: dattruongquoc0206/light-helm  
           path: light-helm
           token: ${{ secrets.GITHUB_TOKEN }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.app-light-helm-repo-token }}
+          
       - name: update helm chart image tag values
         run: |
           sed -i 's|tag: .*|tag: ${{ github.sha }}|' light-helm/charts/model-serving/values.yaml  
+      
       - name: commit and push changes
         run: |
           cd light-helm
