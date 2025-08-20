@@ -1,7 +1,7 @@
 from fastapi import FastAPI, Request
 from pydantic import BaseModel
 
-app = FastAPI()
+app = FastAPI(root_path="/app")
 
 class NameRequest(BaseModel):
     name: str
